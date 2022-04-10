@@ -9,23 +9,32 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+//구성정보라는것을 알려주는 애노테이션 -- 스프링은 이를 적어주게 되어있음.
+@Configuration
 public class AppConfig {
 
+    //각 메소드에 @Bean 을 달아주면 스프링 컨테이너에 등록이 됨
+    @Bean
     //MemberService 는 메모리 멤버 리포지토리를 사용할것임
     public MemberService memberService(){
         return new MemberServiceImpl(MemberRepository());
     }
 
-    private MemberRepository MemberRepository() {
+    @Bean
+    public MemberRepository MemberRepository() {
         return new MemoryMemberRepository();
     }
 
+    @Bean
     public OrderService orderService(){
         return new OrderServiceImpl(MemberRepository(), DiscountPolicy());
     }
 
-    private DiscountPolicy DiscountPolicy() {
+    @Bean
+    public DiscountPolicy DiscountPolicy() {
         return new RateDiscountPolicy();
     }
 
