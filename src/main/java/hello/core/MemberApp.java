@@ -8,8 +8,11 @@ import hello.core.member.MemberServiceImpl;
 public class MemberApp {
 
     public static void main(String[] args) {
+
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+
         //회원가입 예제 -- 순수한 자바코드로 작성
-        MemberService memberService = new MemberServiceImpl();
         Member memberA = new Member(1L, "memberA", Grade.VIP);
         memberService.join(memberA);
 
