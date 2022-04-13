@@ -7,6 +7,7 @@ import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
+import hello.core.order.Order;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -20,16 +21,19 @@ public class AppConfig {
     @Bean
     //MemberService 는 메모리 멤버 리포지토리를 사용할것임
     public MemberService memberService(){
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(MemberRepository());
     }
 
     @Bean
     public MemberRepository MemberRepository() {
+        System.out.println("call AppConfig.MemberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService(){
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(MemberRepository(), DiscountPolicy());
     }
 
