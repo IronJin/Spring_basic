@@ -32,4 +32,15 @@ public class ConfigurationSingletonTest {
         assertThat(orderService.getMemberRepository()).isSameAs(memberRepository2);
     }
 
+    @Test
+    void configurationDeep(){
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig bean = ac.getBean(AppConfig.class);
+
+        System.out.println("bean = " + bean.getClass());
+        //out : bean = class hello.core.AppConfig$$EnhancerBySpringCGLIB$$ecabb706
+        //내가 만든 클래스가 아니라 CGLIB 라는 바이트코드 조작 라이브러리를 사용해서 AppConfig 클래스를 상속받은 임의의 다른 클래스를 만들고, 그 다른 클래스를 스프링에 등록한것
+        //이 임의의 다른 클래스가 바로 싱글톤이 보장되도록 해준다.
+    }
+
 }
